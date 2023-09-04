@@ -40,11 +40,15 @@ public class MainATM {
 			//En funcion de la opcion hacemos una cosa u otra
 			switch (option) {
 				case 1:
-					loginRegister.login();
+					
+					if(!loginRegister.login()) {
+						break;
+					}
 					userActual = loginRegister.getUserActual();
 					menus.printOpsMenu();
 					ops.selectOption(userActual);
 					break;
+					
 				case 2:
 					loginRegister.register();
 					break;

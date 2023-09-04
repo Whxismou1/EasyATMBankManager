@@ -16,9 +16,9 @@ public class LoginRegister {
 	Scanner sc = new Scanner(System.in);
 	ConexionBBDD bd = new ConexionBBDD();
 	Encoder encrypter = new Encoder();
-	User userActual;
+	User userActual = null;
 
-	public void login() throws SQLException, IOException, NoSuchAlgorithmException {
+	public boolean login() throws SQLException, IOException, NoSuchAlgorithmException {
 		System.out.println("\n\n***** Login MENU *****");
 
 		System.out.print("Introduce the username: ");
@@ -28,7 +28,7 @@ public class LoginRegister {
 			System.out.println("ERROR: El usuario no existe!");
 		} else {
 			//En caso de que exista pedimos la contraseña
-			System.out.println("Introduce the password: ");
+			System.out.print("Introduce the password: ");
 			String passwordIntroduced = sc.next();
 			
 			//obtenemos el useractual
@@ -36,13 +36,15 @@ public class LoginRegister {
 			
 			if(!encrypter.encode(passwordIntroduced).equals(userActual.getPassword())) {
 				System.out.println("ERROR: Usuario/Paswword incorrecto!");
+				return false;
 			}else {
 				System.out.println("Login succesfully!");
-				return;
+				return true;
 			}
 			
 			
 		}
+		return false;
 
 	}
 
